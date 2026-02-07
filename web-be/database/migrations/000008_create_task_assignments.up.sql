@@ -6,5 +6,5 @@ CREATE TABLE IF NOT EXISTS task_assignments (
     PRIMARY KEY (task_id, user_id)
 );
 
-CREATE INDEX idx_task_assignments_task_id ON task_assignments(task_id);
-CREATE INDEX idx_task_assignments_user_id ON task_assignments(user_id);
+CREATE INDEX IF NOT EXISTS idx_task_assignments_task_id ON task_assignments(task_id);
+CREATE INDEX IF NOT EXISTS idx_task_assignments_user_id ON task_assignments(user_id);
