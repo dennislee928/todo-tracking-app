@@ -1,0 +1,84 @@
+# flyctl launch added from device_shared/.gitignore
+# Flutter
+device_shared/**/.dart_tool
+device_shared/**/.packages
+device_shared/**/build
+device_shared/**/*.iml
+
+# Android
+device_shared/**/android/local.properties
+device_shared/**/android/.gradle
+device_shared/**/android/captures
+device_shared/**/android/key.properties
+device_shared/**/*.apk
+device_shared/**/*.aab
+
+# iOS
+device_shared/**/ios/Pods
+device_shared/**/ios/.symlinks
+device_shared/**/ios/Flutter/Flutter.framework
+device_shared/**/ios/Flutter/Flutter.podspec
+device_shared/**/*.ipa
+
+# flyctl launch added from device_shared/android/.gitignore
+device_shared/android/**/gradle-wrapper.jar
+device_shared/android/**/.gradle
+device_shared/android/**/local.properties
+device_shared/android/**/*.iml
+device_shared/android/**/*.hprof
+device_shared/android/**/.cxx
+device_shared/android/**/*.apk
+device_shared/android/**/*.aab
+
+# flyctl launch added from device_shared/macos/.gitignore
+# Flutter-related
+device_shared/macos/**/**/Flutter/ephemeral
+device_shared/macos/**/**/Pods
+
+# Xcode-related
+device_shared/macos/**/**/dgph
+device_shared/macos/**/**/xcuserdata
+
+# flyctl launch added from web-ui/.gitignore
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+web-ui/node_modules
+web-ui/.pnp
+web-ui/**/.pnp.*
+web-ui/**/.yarn/*
+!web-ui/**/.yarn/patches
+!web-ui/**/.yarn/plugins
+!web-ui/**/.yarn/releases
+!web-ui/**/.yarn/versions
+
+# testing
+web-ui/coverage
+
+# next.js
+web-ui/.next
+web-ui/out
+
+# production
+web-ui/build
+
+# misc
+web-ui/**/.DS_Store
+web-ui/**/*.pem
+
+# debug
+web-ui/**/npm-debug.log*
+web-ui/**/yarn-debug.log*
+web-ui/**/yarn-error.log*
+web-ui/**/.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+web-ui/**/.env*
+
+# vercel
+web-ui/**/.vercel
+
+# typescript
+web-ui/**/*.tsbuildinfo
+web-ui/**/next-env.d.ts
+fly.toml
