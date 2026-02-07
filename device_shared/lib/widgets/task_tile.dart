@@ -23,7 +23,7 @@ class TaskTile extends StatelessWidget {
       title: Text(
         task.title,
         style: task.isCompleted
-            ? TextStyle(decoration: TextDecoration.lineThrough)
+            ? const TextStyle(decoration: TextDecoration.lineThrough)
             : null,
       ),
       subtitle: task.dueDate != null

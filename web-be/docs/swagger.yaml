@@ -1,5 +1,37 @@
 basePath: /api/v1
 definitions:
+  api_rest.AppleVerifyRequest:
+    properties:
+      receipt_data:
+        type: string
+    required:
+    - receipt_data
+    type: object
+  api_rest.CreateCheckoutSessionRequest:
+    properties:
+      cancel_url:
+        type: string
+      success_url:
+        type: string
+    required:
+    - cancel_url
+    - success_url
+    type: object
+  api_rest.CreateCheckoutSessionResponse:
+    properties:
+      url:
+        type: string
+    type: object
+  api_rest.GoogleVerifyRequest:
+    properties:
+      product_id:
+        type: string
+      purchase_token:
+        type: string
+    required:
+    - product_id
+    - purchase_token
+    type: object
   github_com_todo-tracking-app_web-be_internal_dto.AuthResponse:
     properties:
       token:
@@ -164,6 +196,10 @@ definitions:
       email:
         type: string
       id:
+        type: string
+      is_premium:
+        type: boolean
+      premium_expires_at:
         type: string
     type: object
 host: localhost:8080
@@ -392,6 +428,32 @@ paths:
       summary: Update label
       tags:
       - labels
+  /me:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/github_com_todo-tracking-app_web-be_internal_dto.UserVO'
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Get current user
+      tags:
+      - user
   /projects:
     get:
       consumes:
@@ -538,6 +600,115 @@ paths:
       summary: Update project
       tags:
       - projects
+  /subscription/apple-verify:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Receipt data
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api_rest.AppleVerifyRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Verify Apple IAP receipt
+      tags:
+      - subscription
+  /subscription/create-checkout-session:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Checkout session request
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api_rest.CreateCheckoutSessionRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api_rest.CreateCheckoutSessionResponse'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Create Stripe Checkout session
+      tags:
+      - subscription
+  /subscription/google-verify:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Purchase token and product ID
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api_rest.GoogleVerifyRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: boolean
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "401":
+          description: Unauthorized
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Verify Google Play purchase
+      tags:
+      - subscription
   /tasks:
     get:
       consumes:
