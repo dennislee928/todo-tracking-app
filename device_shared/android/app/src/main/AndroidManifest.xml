@@ -3,7 +3,7 @@
     <application
         android:label="Todo App"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@android:drawable/ic_menu_edit"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
