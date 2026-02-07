@@ -26,24 +26,38 @@ async function fetchAPI<T>(
   return res.json();
 }
 
+export interface User {
+  id: string;
+  email: string;
+  is_premium: boolean;
+  premium_expires_at?: string;
+}
+
 export const api = {
   auth: {
     register: (email: string, password: string) =>
-      fetchAPI<{ token: string; user: { id: string; email: string } }>(
-        "/auth/register",
-        {
-          method: "POST",
-          body: JSON.stringify({ email, password }),
-        }
-      ),
+      fetchAPI<{ token: string; user: User }>("/auth/register", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      }),
     login: (email: string, password: string) =>
-      fetchAPI<{ token: string; user: { id: string; email: string } }>(
-        "/auth/login",
-        {
-          method: "POST",
-          body: JSON.stringify({ email, password }),
-        }
-      ),
+      fetchAPI<{ token: string; user: User }>("/auth/login", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+      }),
+  },
+  user: {
+    me: () => fetchAPI<User>("/me"),
+  },
+  subscription: {
+    createCheckoutSession: (successUrl: string, cancelUrl: string) =>
+      fetchAPI<{ url: string }>("/subscription/create-checkout-session", {
+        method: "POST",
+        body: JSON.stringify({
+          success_url: successUrl,
+          cancel_url: cancelUrl,
+        }),
+      }),
   },
   tasks: {
     list: (projectId?: string) =>

@@ -17,6 +17,7 @@ require (
 
 require (
 	github.com/jackc/puddle/v2 v2.2.1 // indirect
+	github.com/stripe/stripe-go/v81 v81.4.0 // indirect
 	golang.org/x/sync v0.18.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20251029180050-ab9386a59fda // indirect
 )
