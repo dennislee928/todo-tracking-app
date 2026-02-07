@@ -36,13 +36,16 @@ go run ./cmd/server
 
 API 文件: http://localhost:8080/swagger/index.html
 
+**Production (Fly.io):** https://todo-web-be.fly.dev
+
 ### 前端 (web-ui)
 
 ```bash
 cd web-ui
 
-# 設定 API URL
+# 設定 API URL（本地用 localhost，生產用 Fly.io）
 export NEXT_PUBLIC_API_URL=http://localhost:8080/api/v1
+# export NEXT_PUBLIC_API_URL=https://todo-web-be.fly.dev/api/v1
 
 npm install
 npm run dev

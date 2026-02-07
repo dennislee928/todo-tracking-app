@@ -17,16 +17,21 @@ fi
 
 flutter pub get
 
+# Production API (Fly.io backend)
+API_URL="${API_URL:-}"
+[ -n "$API_URL" ] || API_URL="https://todo-web-be.fly.dev/api/v1"
+DART_DEFINE="--dart-define=API_URL=$API_URL"
+
 case "${1:-apk}" in
   run)
-    flutter run -d android
+    flutter run -d android $DART_DEFINE
     ;;
   apk)
-    flutter build apk --release
+    flutter build apk --release $DART_DEFINE
     echo "APK: build/app/outputs/flutter-apk/app-release.apk"
     ;;
   aab)
-    flutter build appbundle --release
+    flutter build appbundle --release $DART_DEFINE
     echo "AAB: build/app/outputs/bundle/release/app-release.aab"
     ;;
   *)
@@ -34,6 +39,9 @@ case "${1:-apk}" in
     echo "  run  - 在 Android 模擬器/實機執行"
     echo "  apk  - 建置 APK（可直接安裝）"
     echo "  aab  - 建置 App Bundle（Play Store 上架）"
+    echo ""
+    echo "API 預設: $API_URL (Fly.io backend)"
+    echo "自訂: API_URL=http://10.0.2.2:8080/api/v1 $0 run"
     exit 1
     ;;
 esac
