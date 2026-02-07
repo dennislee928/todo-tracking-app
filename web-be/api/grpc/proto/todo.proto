@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package todo.v1;
 
-option go_package = "github.com/todo-tracking-app/web-be/api/grpc/proto;proto";
+option go_package = "github.com/todo-tracking-app/web-be/api/grpc/proto";
 
 service TodoService {
   rpc ListTasks(ListTasksRequest) returns (ListTasksResponse);
