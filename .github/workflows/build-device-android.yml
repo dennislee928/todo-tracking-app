@@ -1,0 +1,47 @@
+name: Build device-android
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'device_shared/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'device_shared/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+
+      - name: Get dependencies
+        run: cd device_shared && flutter pub get
+
+      - name: Create platforms if missing
+        run: |
+          cd device_shared
+          if [ ! -d "android" ]; then flutter create . --platforms=android; fi
+          if [ ! -d "ios" ]; then flutter create . --platforms=ios; fi
+
+      - name: Build APK
+        run: cd device_shared && flutter build apk --release
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release.apk
+          path: device_shared/build/app/outputs/flutter-apk/app-release.apk

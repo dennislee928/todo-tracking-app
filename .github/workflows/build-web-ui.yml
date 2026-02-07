@@ -1,0 +1,30 @@
+name: Build web-ui
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'web-ui/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'web-ui/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./web-ui
+          file: ./web-ui/Dockerfile
+          push: false
+          tags: todo-web-ui:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
