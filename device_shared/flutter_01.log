@@ -1,0 +1,89 @@
+Flutter crash report.
+Please report a bug at https://github.com/flutter/flutter/issues.
+
+## command
+
+flutter build macos
+
+## exception
+
+ProcessException: ProcessException: Process exited abnormally with exit code 72:
+xcrun: error: unable to find utility "xcodebuild", not a developer tool or in PATH
+  Command: /usr/bin/arch -arm64e xcrun xcodebuild -list -project Runner.xcodeproj
+
+```
+#0      RunResult.throwException (package:flutter_tools/src/base/process.dart:153:5)
+#1      _DefaultProcessUtils.run (package:flutter_tools/src/base/process.dart:379:19)
+<asynchronous suspension>
+#2      XcodeProjectInterpreter.getInfo (package:flutter_tools/src/ios/xcodeproj.dart:328:30)
+<asynchronous suspension>
+#3      buildMacOS (package:flutter_tools/src/macos/build_macos.dart:127:41)
+<asynchronous suspension>
+#4      BuildMacosCommand.runCommand (package:flutter_tools/src/commands/build_macos.dart:60:5)
+<asynchronous suspension>
+#5      FlutterCommand.run.<anonymous closure> (package:flutter_tools/src/runner/flutter_command.dart:1559:27)
+<asynchronous suspension>
+#6      AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#7      CommandRunner.runCommand (package:args/command_runner.dart:212:13)
+<asynchronous suspension>
+#8      FlutterCommandRunner.runCommand.<anonymous closure> (package:flutter_tools/src/runner/flutter_command_runner.dart:487:9)
+<asynchronous suspension>
+#9      AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#10     FlutterCommandRunner.runCommand (package:flutter_tools/src/runner/flutter_command_runner.dart:422:5)
+<asynchronous suspension>
+#11     run.<anonymous closure>.<anonymous closure> (package:flutter_tools/runner.dart:104:11)
+<asynchronous suspension>
+#12     AppContext.run.<anonymous closure> (package:flutter_tools/src/base/context.dart:154:19)
+<asynchronous suspension>
+#13     main (package:flutter_tools/executable.dart:103:3)
+<asynchronous suspension>
+```
+
+## flutter doctor
+
+```
+[✓] Flutter (Channel stable, 3.38.9, on macOS 15.7.3 24G419 darwin-arm64, locale en-US) [383ms]
+    • Flutter version 3.38.9 on channel stable at /opt/homebrew/share/flutter
+    • Upstream repository https://github.com/flutter/flutter.git
+    • Framework revision 67323de285 (9 days ago), 2026-01-28 13:43:12 -0800
+    • Engine revision 587c18f873
+    • Dart version 3.10.8
+    • DevTools version 2.51.1
+    • Feature flags: enable-web, enable-linux-desktop, enable-macos-desktop, enable-windows-desktop, enable-android, enable-ios, cli-animations, enable-native-assets, omit-legacy-version-file, enable-lldb-debugging
+
+[✗] Android toolchain - develop for Android devices [57ms]
+    ✗ Unable to locate Android SDK.
+      Install Android Studio from: https://developer.android.com/studio/index.html
+      On first launch it will assist you in installing the Android SDK components.
+      (or visit https://flutter.dev/to/macos-android-setup for detailed instructions).
+      If the Android SDK has been installed to a custom location, please use
+      `flutter config --android-sdk` to update to that location.
+
+
+[✗] Xcode - develop for iOS and macOS [67ms]
+    ✗ Xcode installation is incomplete; a full installation is necessary for iOS and macOS development.
+      Download at: https://developer.apple.com/xcode/
+      Or install Xcode via the App Store.
+      Once installed, run:
+        sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+        sudo xcodebuild -runFirstLaunch
+    ✗ CocoaPods not installed.
+        CocoaPods is a package manager for iOS or macOS platform code.
+        Without CocoaPods, plugins will not work on iOS or macOS.
+        For more info, see https://flutter.dev/to/platform-plugins
+      For installation instructions, see https://guides.cocoapods.org/using/getting-started.html#installation
+
+[✓] Chrome - develop for the web [34ms]
+    • Chrome at /Applications/Google Chrome.app/Contents/MacOS/Google Chrome
+
+[✓] Connected device (2 available) [87ms]
+    • macOS (desktop) • macos  • darwin-arm64   • macOS 15.7.3 24G419 darwin-arm64
+    • Chrome (web)    • chrome • web-javascript • Google Chrome 144.0.7559.60
+
+[✓] Network resources [920ms]
+    • All expected network resources are available.
+
+! Doctor found issues in 2 categories.
+```
