@@ -7,7 +7,9 @@
 ```
 ├── web-be/           # Go 後端 (Gin, GORM, Swagger, gRPC)
 ├── web-ui/           # Next.js 15+ 前端
-├── device_shared/    # Flutter 雙平台 (iOS + Android)
+├── device_shared/    # Flutter 雙平台 (iOS + Android) 共用專案
+├── device-ios/       # iOS 建置說明
+├── device-android/   # Android 建置說明
 ├── docs/             # 功能比較表等文件
 ├── .github/workflows/# CI/CD pipelines
 ├── render.yaml       # Render Blueprint 部署
