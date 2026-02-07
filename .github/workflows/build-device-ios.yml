@@ -1,0 +1,41 @@
+name: Build device-ios
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'device_shared/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'device_shared/**'
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.0'
+          channel: 'stable'
+
+      - name: Get dependencies
+        run: cd device_shared && flutter pub get
+
+      - name: Create platforms if missing
+        run: |
+          cd device_shared
+          if [ ! -d "android" ]; then flutter create . --platforms=android; fi
+          if [ ! -d "ios" ]; then flutter create . --platforms=ios; fi
+
+      - name: Build iOS (simulator)
+        run: cd device_shared && flutter build ios --release --no-codesign
+
+      - name: Build IPA (requires signing - placeholder)
+        run: |
+          echo "To build IPA for device/TestFlight, configure code signing in GitHub Secrets"
+          echo "and run: flutter build ipa"
+          cd device_shared && flutter build ios --release --no-codesign || true

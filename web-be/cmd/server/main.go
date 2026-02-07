@@ -29,10 +29,11 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 
 	_ "github.com/todo-tracking-app/web-be/docs"
+	"github.com/todo-tracking-app/web-be/api/grpc"
+	"github.com/todo-tracking-app/web-be/api/rest"
 	"github.com/todo-tracking-app/web-be/internal/config"
 	"github.com/todo-tracking-app/web-be/internal/database"
 	"github.com/todo-tracking-app/web-be/internal/middleware"
-	"github.com/todo-tracking-app/web-be/api/rest"
 )
 
 func main() {
@@ -74,6 +75,15 @@ func main() {
 
 	// Swagger
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
+
+	// gRPC server (optional, on separate port)
+	if grpcAddr := os.Getenv("GRPC_PORT"); grpcAddr != "" {
+		go func() {
+			if err := grpc.Serve(db, ":"+grpcAddr); err != nil {
+				log.Printf("gRPC server error: %v", err)
+			}
+		}()
+	}
 
 	port := os.Getenv("PORT")
 	if port == "" {

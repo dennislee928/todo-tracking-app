@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: todo-web-be
+    runtime: docker
+    dockerfilePath: ./web-be/Dockerfile
+    dockerContext: ./web-be
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_JWT_SECRET
+        sync: false
+
+  - type: web
+    name: todo-web-ui
+    runtime: docker
+    dockerfilePath: ./web-ui/Dockerfile
+    dockerContext: ./web-ui
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        sync: false

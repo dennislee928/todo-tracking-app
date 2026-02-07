@@ -1,0 +1,30 @@
+name: Build web-be
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'web-be/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'web-be/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./web-be
+          file: ./web-be/Dockerfile
+          push: false
+          tags: todo-web-be:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
