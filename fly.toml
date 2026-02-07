@@ -21,3 +21,5 @@ app = "todo-web-be"
     interval = "15s"
     timeout = "5s"
     path = "/health"
+    [vm]
+    size = "shared-cpu-1x"

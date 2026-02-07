@@ -1,0 +1,8 @@
+gradle-wrapper.jar
+.gradle/
+local.properties
+*.iml
+*.hprof
+.cxx/
+*.apk
+*.aab

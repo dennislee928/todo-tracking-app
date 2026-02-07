@@ -63,10 +63,15 @@ func main() {
 		authGroup := v1.Group("/auth")
 		rest.RegisterAuthRoutes(authGroup, db, cfg)
 
+		// Stripe webhook (no auth - Stripe sends raw POST)
+		rest.RegisterSubscriptionRoutes(v1, db, cfg)
+
 		// Protected routes
 		protected := v1.Group("")
 		protected.Use(middleware.Auth(cfg))
 		{
+			rest.RegisterUserRoutes(protected, db)
+			rest.RegisterSubscriptionProtectedRoutes(protected, db, cfg)
 			rest.RegisterProjectRoutes(protected, db)
 			rest.RegisterTaskRoutes(protected, db)
 			rest.RegisterLabelRoutes(protected, db)

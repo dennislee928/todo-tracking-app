@@ -11,6 +11,8 @@ dependencies:
     sdk: flutter
   http: ^1.2.0
   shared_preferences: ^2.2.2
+  google_mobile_ads: ^5.2.0
+  in_app_purchase: ^3.2.0
 
 dev_dependencies:
   flutter_test:

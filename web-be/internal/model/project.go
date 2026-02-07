@@ -16,7 +16,8 @@ type Project struct {
 	UpdatedAt time.Time      `gorm:"autoUpdateTime"`
 	DeletedAt gorm.DeletedAt `gorm:"index"`
 
-	Tasks []Task `gorm:"foreignKey:ProjectID"`
+	Tasks   []Task          `gorm:"foreignKey:ProjectID"`
+	Members []ProjectMember `gorm:"foreignKey:ProjectID"`
 }
 
 // TableName overrides the table name.

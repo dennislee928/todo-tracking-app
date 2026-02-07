@@ -102,6 +102,50 @@ class ApiService {
     if (res.statusCode != 201) throw Exception(res.body);
     return Project.fromJson(jsonDecode(res.body) as Map<String, dynamic>);
   }
+
+  Future<User> getMe() async {
+    final res = await http.get(
+      Uri.parse('$_baseUrl/me'),
+      headers: await _headers(),
+    );
+    if (res.statusCode != 200) throw Exception(res.body);
+    return User.fromJson(jsonDecode(res.body) as Map<String, dynamic>);
+  }
+
+  Future<void> verifyApplePurchase(String receiptData) async {
+    final res = await http.post(
+      Uri.parse('$_baseUrl/subscription/apple-verify'),
+      headers: await _headers(),
+      body: jsonEncode({'receipt_data': receiptData}),
+    );
+    if (res.statusCode != 200) throw Exception(res.body);
+  }
+
+  Future<void> verifyGooglePurchase(String purchaseToken, String productId) async {
+    final res = await http.post(
+      Uri.parse('$_baseUrl/subscription/google-verify'),
+      headers: await _headers(),
+      body: jsonEncode({
+        'purchase_token': purchaseToken,
+        'product_id': productId,
+      }),
+    );
+    if (res.statusCode != 200) throw Exception(res.body);
+  }
+}
+
+class User {
+  final String id;
+  final String email;
+  final bool isPremium;
+
+  User({required this.id, required this.email, required this.isPremium});
+
+  factory User.fromJson(Map<String, dynamic> json) => User(
+        id: json['id'] as String,
+        email: json['email'] as String,
+        isPremium: json['is_premium'] as bool? ?? false,
+      );
 }
 
 class Task {

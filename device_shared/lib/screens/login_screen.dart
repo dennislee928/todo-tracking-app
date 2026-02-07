@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:convert';
+import 'package:device_shared/screens/register_screen.dart';
 import 'package:http/http.dart' as http;
 import 'package:device_shared/services/auth_service.dart';
 
@@ -70,6 +71,16 @@ class LoginScreen extends StatelessWidget {
                   obscureText: true,
                 ),
                 const SizedBox(height: 24),
+                TextButton(
+                  onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => RegisterScreen(onRegistered: onLogin),
+                    ),
+                  ),
+                  child: const Text('還沒有帳號？註冊'),
+                ),
+                const SizedBox(height: 16),
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(

@@ -5,10 +5,12 @@ on:
     branches: [main]
     paths:
       - 'device_shared/**'
+      - 'device-android/**'
   pull_request:
     branches: [main]
     paths:
       - 'device_shared/**'
+      - 'device-android/**'
 
 jobs:
   build:

@@ -70,10 +70,7 @@ func (h *authHandler) Register(c *gin.Context) {
 
 	c.JSON(http.StatusCreated, dto.AuthResponse{
 		Token: token,
-		User: dto.UserVO{
-			ID:    user.ID,
-			Email: user.Email,
-		},
+		User:  dto.UserToVO(user),
 	})
 }
 
@@ -113,10 +110,7 @@ func (h *authHandler) Login(c *gin.Context) {
 
 	c.JSON(http.StatusOK, dto.AuthResponse{
 		Token: token,
-		User: dto.UserVO{
-			ID:    user.ID,
-			Email: user.Email,
-		},
+		User:  dto.UserToVO(user),
 	})
 }
 
