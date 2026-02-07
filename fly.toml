@@ -1,26 +1,32 @@
-# Fly.io config for todo-web-be
-# Deploy from dashboard: set Working directory = "web-be", Config path = "../fly.toml"
-# Or CLI: fly deploy .
+# fly.toml app configuration file generated for todo-web-be on 2026-02-07T14:08:37+08:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
 
-app = "todo-web-be"
+app = 'todo-web-be'
+primary_region = 'nrt'
 
-# Use Dockerfile.web-be when build context is repo root (e.g. Fly dashboard default)
 [build]
-  dockerfile = "Dockerfile.web-be"
+  dockerfile = 'Dockerfile.web-be'
 
 [env]
-  PORT = "8080"
+  PORT = '8080'
 
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = "stop"
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
-  processes = ["app"]
+  processes = ['app']
 
   [[http_service.checks]]
-    grace_period = "5s"
-    interval = "15s"
-    timeout = "5s"
-    path = "/health"
+    interval = '15s'
+    timeout = '5s'
+    grace_period = '30s'
+    path = '/health'
+
+[[vm]]
+  memory = '256mb'
+  cpus = 1
+  memory_mb = 256
