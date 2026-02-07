@@ -36,8 +36,8 @@ jobs:
       - name: Create platforms if missing
         run: |
           cd device_shared
-          if [ ! -d "android" ]; then flutter create . --platforms=android; fi
-          if [ ! -d "ios" ]; then flutter create . --platforms=ios; fi
+          if [ ! -d "ios/Runner.xcodeproj" ]; then flutter create . --platforms=ios; fi
+          if [ ! -d "android/app" ]; then flutter create . --platforms=android; fi
 
       - name: Build APK
         run: cd device_shared && flutter build apk --release

@@ -8,5 +8,5 @@ CREATE TABLE IF NOT EXISTS labels (
     deleted_at TIMESTAMPTZ
 );
 
-CREATE INDEX idx_labels_user_id ON labels(user_id);
-CREATE INDEX idx_labels_deleted_at ON labels(deleted_at);
+CREATE INDEX IF NOT EXISTS idx_labels_user_id ON labels(user_id);
+CREATE INDEX IF NOT EXISTS idx_labels_deleted_at ON labels(deleted_at);
