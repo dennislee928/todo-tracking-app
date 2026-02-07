@@ -7,6 +7,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/google/uuid"
+	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 
 	"github.com/todo-tracking-app/web-be/internal/config"
@@ -132,13 +133,13 @@ func (h *authHandler) generateToken(userID, email string) (string, error) {
 	return token.SignedString([]byte(h.cfg.JWTSecret))
 }
 
-// hashPassword hashes password (simplified - use bcrypt in production).
+// hashPassword hashes password with bcrypt.
 func hashPassword(pwd string) string {
-	// TODO: use bcrypt.DefaultCost
-	return pwd
+	hash, _ := bcrypt.GenerateFromPassword([]byte(pwd), bcrypt.DefaultCost)
+	return string(hash)
 }
 
-// checkPassword verifies password (simplified - use bcrypt in production).
+// checkPassword verifies password against bcrypt hash.
 func checkPassword(pwd, hash string) bool {
-	return pwd == hash
+	return bcrypt.CompareHashAndPassword([]byte(hash), []byte(pwd)) == nil
 }
