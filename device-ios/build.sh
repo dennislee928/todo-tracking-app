@@ -17,9 +17,18 @@ fi
 
 flutter pub get
 
-case "${1:-ios}" in
+case "${1:-run}" in
   run)
-    flutter run -d ios
+    # 若無 iOS 裝置，自動改用 macOS
+    if flutter devices 2>&1 | grep -qE '\bios\b|iPhone|iPad'; then
+      flutter run -d ios
+    else
+      echo "No iOS device found. Running on macOS instead..."
+      flutter run -d macos
+    fi
+    ;;
+  macos)
+    flutter run -d macos
     ;;
   build)
     flutter build ios --release --no-codesign
@@ -30,8 +39,9 @@ case "${1:-ios}" in
     echo "IPA: build/ios/ipa/*.ipa"
     ;;
   *)
-    echo "Usage: $0 {run|build|ipa}"
-    echo "  run   - 在 iOS 模擬器/實機執行"
+    echo "Usage: $0 {run|macos|build|ipa}"
+    echo "  run   - 在 iOS 模擬器/實機執行；若無則改用 macOS"
+    echo "  macos - 直接在 macOS 桌面執行"
     echo "  build - 建置 iOS (no-codesign，模擬器用)"
     echo "  ipa   - 建置 IPA（需 Apple Developer 憑證）"
     exit 1
