@@ -23,7 +23,7 @@ primary_region = 'nrt'
   [[http_service.checks]]
     interval = '15s'
     timeout = '5s'
-    grace_period = '5s'
+    grace_period = '30s'
     path = '/health'
 
 [[vm]]
