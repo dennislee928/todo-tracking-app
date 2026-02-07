@@ -8,5 +8,5 @@ CREATE TABLE IF NOT EXISTS subtasks (
     deleted_at TIMESTAMPTZ
 );
 
-CREATE INDEX idx_subtasks_task_id ON subtasks(task_id);
-CREATE INDEX idx_subtasks_deleted_at ON subtasks(deleted_at);
+CREATE INDEX IF NOT EXISTS idx_subtasks_task_id ON subtasks(task_id);
+CREATE INDEX IF NOT EXISTS idx_subtasks_deleted_at ON subtasks(deleted_at);

@@ -8,5 +8,5 @@ CREATE TABLE IF NOT EXISTS projects (
     deleted_at TIMESTAMPTZ
 );
 
-CREATE INDEX idx_projects_user_id ON projects(user_id);
-CREATE INDEX idx_projects_deleted_at ON projects(deleted_at);
+CREATE INDEX IF NOT EXISTS idx_projects_user_id ON projects(user_id);
+CREATE INDEX IF NOT EXISTS idx_projects_deleted_at ON projects(deleted_at);
