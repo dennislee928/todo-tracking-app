@@ -1,10 +1,12 @@
 # Fly.io config for todo-web-be
-# Deploy: fly deploy web-be  (from repo root, sets context to web-be)
+# Deploy from dashboard: set Working directory = "web-be", Config path = "../fly.toml"
+# Or CLI: fly deploy .
 
 app = "todo-web-be"
 
+# Use Dockerfile.web-be when build context is repo root (e.g. Fly dashboard default)
 [build]
-  dockerfile = "web-be/Dockerfile"
+  dockerfile = "Dockerfile.web-be"
 
 [env]
   PORT = "8080"
@@ -12,14 +14,13 @@ app = "todo-web-be"
 [http_service]
   internal_port = 8080
   force_https = true
-  auto_stop_machines = true
+  auto_stop_machines = "stop"
   auto_start_machines = true
   min_machines_running = 0
   processes = ["app"]
 
   [[http_service.checks]]
+    grace_period = "5s"
     interval = "15s"
     timeout = "5s"
     path = "/health"
-    [vm]
-    size = "shared-cpu-1x"

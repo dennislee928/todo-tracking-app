@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:device_shared/init_ads.dart';
 import 'package:device_shared/screens/login_screen.dart';
 import 'package:device_shared/screens/home_screen.dart';
 import 'package:device_shared/services/auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await MobileAds.instance.initialize();
+  await initAds();
   runApp(const TodoApp());
 }
 

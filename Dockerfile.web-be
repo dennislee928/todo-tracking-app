@@ -1,0 +1,22 @@
+# Root-level Dockerfile for Fly.io dashboard (build context = repo root)
+# Use when fly.toml is at root and Working directory = ./
+FROM golang:1.25.7-alpine AS builder
+
+WORKDIR /app
+
+COPY web-be/go.mod web-be/go.sum ./
+RUN go mod download
+
+COPY web-be/ .
+RUN CGO_ENABLED=0 go build -o /server ./cmd/server
+
+FROM alpine:3.19
+
+RUN apk --no-cache add ca-certificates
+
+WORKDIR /app
+COPY --from=builder /server .
+
+EXPOSE 8080
+
+CMD ["./server"]
