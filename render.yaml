@@ -24,6 +24,7 @@ services:
     dockerfilePath: ./web-ui/Dockerfile
     dockerContext: ./web-ui
     envVars:
+      # Fly.io backend: https://todo-web-be.fly.dev/api/v1
       - key: NEXT_PUBLIC_API_URL
         sync: false
          # Use a free Render service instance
