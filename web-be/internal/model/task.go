@@ -30,9 +30,10 @@ type Task struct {
 	UpdatedAt   time.Time       `gorm:"autoUpdateTime"`
 	DeletedAt   gorm.DeletedAt  `gorm:"index"`
 
-	Project   *Project    `gorm:"foreignKey:ProjectID"`
-	Labels    []Label     `gorm:"many2many:task_labels;"`
-	Subtasks  []Subtask   `gorm:"foreignKey:TaskID"`
+	Project      *Project         `gorm:"foreignKey:ProjectID"`
+	Labels       []Label          `gorm:"many2many:task_labels;"`
+	Subtasks     []Subtask        `gorm:"foreignKey:TaskID"`
+	Assignments  []TaskAssignment `gorm:"foreignKey:TaskID"`
 }
 
 // TableName overrides the table name.
