@@ -1,5 +1,7 @@
 package dto
 
+import "time"
+
 // ProjectCreateRequest is the request body for creating a project.
 type ProjectCreateRequest struct {
 	Name  string `json:"name" binding:"required"`
@@ -14,9 +16,9 @@ type ProjectUpdateRequest struct {
 
 // ProjectVO is the view object for project.
 type ProjectVO struct {
-	ID        string `json:"id"`
-	Name      string `json:"name"`
-	Color     string `json:"color"`
-	UserID    string `json:"user_id"`
-	CreatedAt string `json:"created_at"`
+	ID        string    `json:"id"`
+	Name      string    `json:"name"`
+	Color     string    `json:"color"`
+	UserID    string    `json:"user_id"`
+	CreatedAt time.Time `json:"created_at"`
 }

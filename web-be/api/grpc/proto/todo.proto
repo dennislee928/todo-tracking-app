@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+package todo.v1;
+
+option go_package = "github.com/todo-tracking-app/web-be/api/grpc/proto;proto";
+
+service TodoService {
+  rpc ListTasks(ListTasksRequest) returns (ListTasksResponse);
+  rpc GetTask(GetTaskRequest) returns (TaskMessage);
+  rpc CreateTask(CreateTaskRequest) returns (TaskMessage);
+  rpc UpdateTask(UpdateTaskRequest) returns (TaskMessage);
+  rpc DeleteTask(DeleteTaskRequest) returns (DeleteTaskResponse);
+
+  rpc ListProjects(ListProjectsRequest) returns (ListProjectsResponse);
+  rpc GetProject(GetProjectRequest) returns (ProjectMessage);
+  rpc CreateProject(CreateProjectRequest) returns (ProjectMessage);
+  rpc UpdateProject(UpdateProjectRequest) returns (ProjectMessage);
+  rpc DeleteProject(DeleteProjectRequest) returns (DeleteProjectResponse);
+}
+
+message TaskMessage {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  string project_id = 4;
+  string user_id = 5;
+  int32 priority = 6;
+  string status = 7;
+  int32 progress = 8;
+  string due_date = 9;  // RFC3339
+  string reminder_at = 10;
+  string created_at = 11;
+  string updated_at = 12;
+}
+
+message ListTasksRequest {
+  string user_id = 1;
+  string project_id = 2;
+}
+
+message ListTasksResponse {
+  repeated TaskMessage tasks = 1;
+}
+
+message GetTaskRequest {
+  string id = 1;
+  string user_id = 2;
+}
+
+message CreateTaskRequest {
+  string user_id = 1;
+  string title = 2;
+  string description = 3;
+  string project_id = 4;
+  int32 priority = 5;
+  string due_date = 6;
+  string reminder_at = 7;
+}
+
+message UpdateTaskRequest {
+  string id = 1;
+  string user_id = 2;
+  optional string title = 3;
+  optional string description = 4;
+  optional string project_id = 5;
+  optional int32 priority = 6;
+  optional string status = 7;
+  optional int32 progress = 8;
+  optional string due_date = 9;
+  optional string reminder_at = 10;
+}
+
+message DeleteTaskRequest {
+  string id = 1;
+  string user_id = 2;
+}
+
+message DeleteTaskResponse {}
+
+message ProjectMessage {
+  string id = 1;
+  string name = 2;
+  string color = 3;
+  string user_id = 4;
+  string created_at = 5;
+}
+
+message ListProjectsRequest {
+  string user_id = 1;
+}
+
+message ListProjectsResponse {
+  repeated ProjectMessage projects = 1;
+}
+
+message GetProjectRequest {
+  string id = 1;
+  string user_id = 2;
+}
+
+message CreateProjectRequest {
+  string user_id = 1;
+  string name = 2;
+  string color = 3;
+}
+
+message UpdateProjectRequest {
+  string id = 1;
+  string user_id = 2;
+  optional string name = 3;
+  optional string color = 4;
+}
+
+message DeleteProjectRequest {
+  string id = 1;
+  string user_id = 2;
+}
+
+message DeleteProjectResponse {}

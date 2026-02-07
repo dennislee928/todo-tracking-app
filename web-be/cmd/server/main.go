@@ -28,6 +28,7 @@ import (
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
+	_ "github.com/todo-tracking-app/web-be/docs"
 	"github.com/todo-tracking-app/web-be/internal/config"
 	"github.com/todo-tracking-app/web-be/internal/database"
 	"github.com/todo-tracking-app/web-be/internal/middleware"
