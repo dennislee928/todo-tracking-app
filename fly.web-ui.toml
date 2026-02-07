@@ -1,10 +1,13 @@
 # Fly.io config for todo-web-ui
-# Deploy: fly deploy --config fly.web-ui.toml web-ui
+# Deploy: fly deploy --config fly.web-ui.toml
 
 app = "todo-web-ui"
 
 [build]
   dockerfile = "web-ui/Dockerfile"
+
+[build.args]
+  NEXT_PUBLIC_API_URL = "https://todo-web-be.fly.dev/api/v1"
 
 [env]
   PORT = "3000"
@@ -16,3 +19,5 @@ app = "todo-web-ui"
   auto_start_machines = true
   min_machines_running = 0
   processes = ["app"]
+  [vm]
+    size = "shared-cpu-1x"
