@@ -47,7 +47,12 @@ func main() {
 		log.Fatalf("connect database: %v", err)
 	}
 
-	r := gin.Default()
+	gin.SetMode(gin.ReleaseMode)
+	r := gin.New()
+	r.Use(gin.Logger(), gin.Recovery())
+
+	// Trust Fly.io proxy; nil = trust none, avoids "trust all proxies" warning
+	r.SetTrustedProxies(nil)
 
 	// CORS
 	r.Use(middleware.CORS())
